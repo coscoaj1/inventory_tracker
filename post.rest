@@ -1,1 +1,10 @@
 POST http://localhost:3001/inventory
+Content-Type: application/json
+
+{
+    "product_name": "candy",
+    "sku": 11001,
+    "location": "A11",
+    "count": "13",
+    "id": "0"
+}
