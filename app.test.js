@@ -12,16 +12,45 @@ describe("POST /inventory", () => {
     const response = await api
       .post("/inventory")
       .send({
-        item_name: "candy",
+        product_name: "candy",
         sku: "123",
         location: "A1",
         count: 13,
+        id: 1,
       })
       .expect(200);
-    //   .expect("Content-Type", /application\/json/);
   });
 
-  test("when the item name, SKU, location and count are missing", () => {
-    //should respond a status code 400
+  test("response has product id", async () => {
+    const response = await api.post("/inventory").send({
+      product_name: "candy",
+      sku: "123",
+      location: "A1",
+      count: 13,
+      id: 1,
+    });
+    expect(response.body.id).toBeDefined;
+  });
+
+  test("content type is application/json", async () => {
+    const response = await api
+      .post("/inventory")
+      .send({
+        product_name: "candy",
+        sku: "123",
+        location: "A1",
+        count: 13,
+        id: 0,
+      })
+      .expect("Content-Type", /application\/json/);
+  });
+  test("when the product name is missing", async () => {
+    const newProduct = {
+      sku: "123",
+      location: "A1",
+      count: 13,
+      id: 0,
+    };
+    const response = await api.post("/inventory").send(newProduct).expect(401);
   });
 });
