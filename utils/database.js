@@ -1,4 +1,3 @@
-require("dotenv").config();
 const Sequelize = require("sequelize");
 console.log("process env user:", process.env.USER);
 const sequelize = new Sequelize(
