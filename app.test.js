@@ -10,7 +10,7 @@ describe("POST /inventory", () => {
     //should return status code 200
     //should specify json in content-type header
     const response = await api
-      .post("/inventory")
+      .post("/api/inventory")
       .send({
         product_name: "candy",
         sku: "123",
@@ -22,7 +22,7 @@ describe("POST /inventory", () => {
   });
 
   test("response has product id", async () => {
-    const response = await api.post("/inventory").send({
+    const response = await api.post("/api/inventory").send({
       product_name: "candy",
       sku: "123",
       location: "A1",
@@ -34,7 +34,7 @@ describe("POST /inventory", () => {
 
   test("content type is application/json", async () => {
     const response = await api
-      .post("/inventory")
+      .post("/api/inventory")
       .send({
         product_name: "candy",
         sku: "123",
@@ -51,7 +51,10 @@ describe("POST /inventory", () => {
       count: 13,
       id: 0,
     };
-    const response = await api.post("/inventory").send(newProduct).expect(401);
+    const response = await api
+      .post("/api/inventory")
+      .send(newProduct)
+      .expect(401);
   });
 
   test("when the sku is missing", async () => {
@@ -61,7 +64,10 @@ describe("POST /inventory", () => {
       count: 13,
       id: 0,
     };
-    const response = await api.post("/inventory").send(newProduct).expect(401);
+    const response = await api
+      .post("/api/inventory")
+      .send(newProduct)
+      .expect(401);
   });
 
   test("when the location is missing", async () => {
@@ -71,7 +77,10 @@ describe("POST /inventory", () => {
       count: 13,
       id: 0,
     };
-    const response = await api.post("/inventory").send(newProduct).expect(401);
+    const response = await api
+      .post("/api/inventory")
+      .send(newProduct)
+      .expect(401);
   });
   test("when the count is missing", async () => {
     const newProduct = {
@@ -80,7 +89,10 @@ describe("POST /inventory", () => {
       location: "A1",
       id: 0,
     };
-    const response = await api.post("/inventory").send(newProduct).expect(401);
+    const response = await api
+      .post("/api/inventory")
+      .send(newProduct)
+      .expect(401);
   });
   test("when the id is missing", async () => {
     const newProduct = {
@@ -89,6 +101,9 @@ describe("POST /inventory", () => {
       location: "A1",
       id: 0,
     };
-    const response = await api.post("/inventory").send(newProduct).expect(401);
+    const response = await api
+      .post("/api/inventory")
+      .send(newProduct)
+      .expect(401);
   });
 });

@@ -1,4 +1,4 @@
-POST http://localhost:3001/inventory
+POST http://localhost:3001/api/inventory
 Content-Type: application/json
 
 {
@@ -8,15 +8,15 @@ Content-Type: application/json
     "count": "13"
 }
 ###
-DELETE http://localhost:3001/inventory/0
+DELETE http://localhost:3001/api/inventory/0
 
 ###
 
-GET http://localhost:3001/inventory/all
+GET http://localhost:3001/api/inventory/all
 
 ###
 
-PUT http://localhost:3001/inventory/1
+PUT http://localhost:3001/api/inventory/1
 Content-Type: application/json
 
 {
