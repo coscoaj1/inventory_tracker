@@ -1,13 +1,9 @@
 const Sequelize = require("sequelize");
+const config = require("./config");
 console.log("process env user:", process.env.USER);
-const sequelize = new Sequelize(
-  process.env.DATABASE,
-  process.env.USER,
-  process.env.PASSWORD,
-  {
-    dialect: "mysql",
-    host: process.env.HOST,
-  }
-);
+const sequelize = new Sequelize(config.DATABASE, config.USER, config.PASSWORD, {
+  dialect: "mysql",
+  host: config.MYSQL_URI,
+});
 
 module.exports = sequelize;
