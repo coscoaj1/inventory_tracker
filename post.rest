@@ -13,3 +13,15 @@ DELETE http://localhost:3001/inventory/0
 ###
 
 GET http://localhost:3001/inventory/all
+
+###
+
+PUT http://localhost:3001/inventory/1
+Content-Type: application/json
+
+{
+    "product_name": "cinnamon",
+    "sku": 11001,
+    "location": "A11",
+    "count": "13"
+}

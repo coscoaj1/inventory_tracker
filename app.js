@@ -53,6 +53,31 @@ app.delete("/inventory/:id", async (req, res) => {
   }
 });
 
+app.put("/inventory/:id", async (req, res) => {
+  try {
+    const body = req.body;
+
+    const updatedProduct = await Product.update(
+      {
+        product_name: body.product_name,
+        sku: body.sku,
+        location: body.location,
+        count: body.count,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+    const returnUpdatedProduct = await Product.findByPk(req.params.id); // finds the updated row
+    if (!returnUpdatedProduct) throw "Error while Fetching Data"; //catches errors.
+    res.status(200).json(returnUpdatedProduct); //sends updated data to frontend
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 morgan.token("body", (req) => JSON.stringify(req.body));
 app.use(morgan(":url :method :response-time ms :body"));
 
