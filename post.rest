@@ -5,6 +5,11 @@ Content-Type: application/json
     "product_name": "candy",
     "sku": 11001,
     "location": "A11",
-    "count": "13",
-    "id": "0"
+    "count": "13"
 }
+###
+DELETE http://localhost:3001/inventory/0
+
+###
+
+GET http://localhost:3001/inventory/all
