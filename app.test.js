@@ -53,4 +53,42 @@ describe("POST /inventory", () => {
     };
     const response = await api.post("/inventory").send(newProduct).expect(401);
   });
+
+  test("when the sku is missing", async () => {
+    const newProduct = {
+      product_name: "candy",
+      location: "A1",
+      count: 13,
+      id: 0,
+    };
+    const response = await api.post("/inventory").send(newProduct).expect(401);
+  });
+
+  test("when the location is missing", async () => {
+    const newProduct = {
+      product_name: "candy",
+      sku: "123",
+      count: 13,
+      id: 0,
+    };
+    const response = await api.post("/inventory").send(newProduct).expect(401);
+  });
+  test("when the count is missing", async () => {
+    const newProduct = {
+      product_name: "candy",
+      sku: "123",
+      location: "A1",
+      id: 0,
+    };
+    const response = await api.post("/inventory").send(newProduct).expect(401);
+  });
+  test("when the id is missing", async () => {
+    const newProduct = {
+      product_name: "candy",
+      sku: "123",
+      location: "A1",
+      id: 0,
+    };
+    const response = await api.post("/inventory").send(newProduct).expect(401);
+  });
 });
