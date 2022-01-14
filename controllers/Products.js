@@ -1,5 +1,5 @@
 const inventoryRouter = require("express").Router();
-const Product = require("../models/Product");
+const Product = require("../models/product");
 
 inventoryRouter.get("test", (req, res) => {
   res.status(200).send("OK");
