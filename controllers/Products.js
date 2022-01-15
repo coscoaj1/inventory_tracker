@@ -1,5 +1,7 @@
 const inventoryRouter = require("express").Router();
 const Product = require("../models/product");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 inventoryRouter.get("test", (req, res) => {
   res.status(200).send("OK");
@@ -15,7 +17,7 @@ inventoryRouter.get("/all", async (req, res) => {
   }
 });
 
-inventoryRouter.post("/", async (req, res) => {
+inventoryRouter.post("/", upload.single("image"), async (req, res) => {
   try {
     const { product_name, sku, location, count } = req.body;
     const body = req.body;
