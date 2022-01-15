@@ -43,6 +43,7 @@ inventoryRouter.delete("/:id", async (req, res) => {
     await Product.destroy({
       where: { id: req.params.id },
     });
+    res.status(204).send("OK");
   } catch (e) {
     console.log(e);
   }
