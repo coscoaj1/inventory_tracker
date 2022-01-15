@@ -1,5 +1,5 @@
 POST http://localhost:3001/api/inventory
-Content-Type: application/json
+Content-Type: multipart/form-data
 
 {
     "product_name": "candy",

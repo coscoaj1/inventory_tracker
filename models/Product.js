@@ -13,7 +13,7 @@ const Product = sequelize.define("products", {
     allowNull: false,
   },
   sku: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   location: {

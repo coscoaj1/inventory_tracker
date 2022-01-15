@@ -6,6 +6,8 @@ const logger = require("./utils/logger");
 
 const morgan = require("morgan");
 const cors = require("cors");
+morgan.token("body", (req) => JSON.stringify(req.body));
+app.use(morgan(":url :method :response-time ms :body"));
 
 sequelize
   .sync()
@@ -19,8 +21,5 @@ sequelize
 app.use(cors());
 app.use(express.json());
 app.use("/api/inventory", inventoryRouter);
-
-morgan.token("body", (req) => JSON.stringify(req.body));
-app.use(morgan(":url :method :response-time ms :body"));
 
 module.exports = app;
