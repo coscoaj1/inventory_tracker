@@ -19,22 +19,29 @@ inventoryRouter.get("/all", async (req, res) => {
 });
 
 inventoryRouter.post("/", upload.single("image"), async (req, res) => {
-  const file = req.file;
-  const { product_name, sku, location, count } = req.body;
-  const body = req.body;
-  if (!product_name || !sku || !location || !count) {
-    return res.status(401).json({ error: "missing or invalid field" });
+  try {
+    const file = req.file;
+    const body = req.body;
+    const { product_name, sku, location, count } = req.body;
+    if (!product_name || !sku || !location || !count) {
+      return res.status(401).json({ error: "missing or invalid field" });
+    }
+    const result = await uploadFile(file);
+    console.log(result);
+    res.status(200);
+
+    const newProduct = await Product.create({
+      product_name: body.product_name,
+      sku: body.sku,
+      location: body.location,
+      count: body.count,
+      photoUrl: result.Location,
+    });
+
+    res.json(newProduct);
+  } catch (error) {
+    console.log(error);
   }
-  res.status(200);
-
-  // const newProduct = await Product.create({
-  //   product_name: body.product_name,
-  //   sku: body.sku,
-  //   location: body.location,
-  //   count: body.count,
-  // });
-
-  // res.json(newProduct);
 });
 
 inventoryRouter.delete("/:id", async (req, res) => {
