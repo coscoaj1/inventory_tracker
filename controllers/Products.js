@@ -1,5 +1,6 @@
 const inventoryRouter = require("express").Router();
 const Product = require("../models/product");
+const { uploadFile } = require("./../utils/s3");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
@@ -18,26 +19,22 @@ inventoryRouter.get("/all", async (req, res) => {
 });
 
 inventoryRouter.post("/", upload.single("image"), async (req, res) => {
-  try {
-    const { product_name, sku, location, count } = req.body;
-    const body = req.body;
-    console.log(body);
-
-    if (!product_name || !sku || !location || !count) {
-      return res.status(401).json({ error: "missing or invalid field" });
-    }
-
-    const newProduct = await Product.create({
-      product_name: body.product_name,
-      sku: body.sku,
-      location: body.location,
-      count: body.count,
-    });
-
-    res.json(newProduct);
-  } catch (e) {
-    console.log(e);
+  const file = req.file;
+  const { product_name, sku, location, count } = req.body;
+  const body = req.body;
+  if (!product_name || !sku || !location || !count) {
+    return res.status(401).json({ error: "missing or invalid field" });
   }
+  res.status(200);
+
+  // const newProduct = await Product.create({
+  //   product_name: body.product_name,
+  //   sku: body.sku,
+  //   location: body.location,
+  //   count: body.count,
+  // });
+
+  // res.json(newProduct);
 });
 
 inventoryRouter.delete("/:id", async (req, res) => {

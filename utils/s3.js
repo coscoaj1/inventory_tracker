@@ -13,7 +13,8 @@ const s3 = new S3({
   secretAccessKey,
 });
 
-//uploads a file to s3
+//uploads a file to s3, no download function needed since
+//setting the s3 bucket 'get object' to public access
 
 function uploadFile(file) {
   const fileStream = fs.createReadStream(file.path);
@@ -28,16 +29,3 @@ function uploadFile(file) {
 }
 
 exports.uploadFile = uploadFile;
-
-//downloads a file from s3
-
-function getFileStream(fileKey) {
-  const downloadParams = {
-    Key: fileKey,
-    Bucket: bucketName,
-  };
-
-  return s3.getObject(downloadParams).createReadStream();
-}
-
-exports.getFileStream = getFileStream;
