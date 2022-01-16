@@ -4,80 +4,75 @@ const { uploadFile } = require("./../utils/s3");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
-inventoryRouter.get("test", (req, res) => {
-  res.status(200).send("OK");
-});
-
-inventoryRouter.get("/all", async (req, res) => {
+inventoryRouter.get("/all", async (req, res, next) => {
+  let products;
   try {
-    const products = await Product.findAll();
+    products = await Product.findAll();
     console.log(products);
-    res.json(products);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    next(error);
   }
+  res.json(products);
 });
 
-inventoryRouter.post("/", upload.single("image"), async (req, res) => {
-  try {
-    const file = req.file;
-    const body = req.body;
-    const { product_name, sku, location, count } = req.body;
-    if (!product_name || !sku || !location || !count) {
-      return res.status(401).json({ error: "missing or invalid field" });
-    }
-    const result = await uploadFile(file);
-    console.log(result);
-    res.status(200);
+inventoryRouter.post("/", upload.single("image"), async (req, res, next) => {
+  let newProduct;
+  const file = req.file;
+  const body = req.body;
+  const { product_name, sku, location, count } = req.body;
+  if (!product_name || !sku || !location || !count) {
+    return res.status(401).json({ error: "missing or invalid field" });
+  }
+  const result = await uploadFile(file);
 
-    const newProduct = await Product.create({
+  newProduct = await Product.create({
+    product_name: body.product_name,
+    sku: body.sku,
+    location: body.location,
+    count: body.count,
+    image: result.Location,
+  }).catch((error) => {
+    next(error);
+  });
+
+  res.json(newProduct);
+});
+
+inventoryRouter.delete("/:id", async (req, res, next) => {
+  await Product.destroy({
+    where: { id: req.params.id },
+  }).catch((error) => {
+    next(error);
+  });
+  res.status(204).send("OK");
+});
+
+inventoryRouter.put("/:id", async (req, res, next) => {
+  const body = req.body;
+
+  const updatedProduct = await Product.update(
+    {
       product_name: body.product_name,
       sku: body.sku,
       location: body.location,
       count: body.count,
-      image: result.Location,
-    });
-
-    res.json(newProduct);
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-inventoryRouter.delete("/:id", async (req, res) => {
-  try {
-    await Product.destroy({
-      where: { id: req.params.id },
-    });
-    res.status(204).send("OK");
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-inventoryRouter.put("/:id", async (req, res) => {
-  try {
-    const body = req.body;
-
-    const updatedProduct = await Product.update(
-      {
-        product_name: body.product_name,
-        sku: body.sku,
-        location: body.location,
-        count: body.count,
+      image: body.image,
+    },
+    {
+      where: {
+        id: req.params.id,
       },
-      {
-        where: {
-          id: req.params.id,
-        },
-      }
-    );
-    const returnUpdatedProduct = await Product.findByPk(req.params.id); // finds the updated row
-    if (!returnUpdatedProduct) throw "Error while Fetching Data"; //catches errors.
-    res.status(200).json(returnUpdatedProduct); //sends updated data to frontend
-  } catch (e) {
-    console.log(e);
-  }
+    }
+  ).catch((error) => {
+    next(error);
+  });
+  const returnUpdatedProduct = await Product.findByPk(req.params.id);
+  if (!returnUpdatedProduct) throw "Error while Fetching Data";
+  res.status(200).json(returnUpdatedProduct);
+});
+
+inventoryRouter.get("/error", (req, res) => {
+  res.send("The URL you are trying to reach does not exist.");
 });
 
 module.exports = inventoryRouter;

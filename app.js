@@ -1,15 +1,18 @@
 const express = require("express");
-require("express-async-errors");
 const app = express();
-
 const inventoryRouter = require("./controllers/products");
 const sequelize = require("./utils/database");
 const logger = require("./utils/logger");
-
-const morgan = require("morgan");
 const cors = require("cors");
+const morgan = require("morgan");
+const {
+  requestLogger,
+  unknownEndpoint,
+  errorLogger,
+  errorResponder,
+} = require("./utils/middleware");
+
 morgan.token("body", (req) => JSON.stringify(req.body));
-app.use(morgan(":url :method :response-time ms :body"));
 
 sequelize
   .sync()
@@ -22,6 +25,13 @@ sequelize
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static("build"));
+app.use(morgan(":url :method :response-time ms :body"));
 app.use("/api/inventory", inventoryRouter);
+
+app.use(requestLogger);
+app.use(errorLogger);
+app.use(errorResponder);
+app.use(unknownEndpoint);
 
 module.exports = app;

@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/inventory
-Content-Type: multipart/form-data
+Content-Type: application/json
 
 {
     "product_name": "candy",
-    "sku": 11001,
+    "sku": "11001",
     "location": "A11",
     "count": "13"
 }
@@ -16,12 +16,13 @@ GET http://localhost:3001/api/inventory/all
 
 ###
 
-PUT http://localhost:3001/api/inventory/1
+PUT http://localhost:3001/api/inventory/37
 Content-Type: application/json
 
 {
-    "product_name": "cinnamon",
-    "sku": 11001,
-    "location": "A11",
-    "count": "13"
+    "product_name": "Dried Chiles",
+    "sku": "229993",
+    "location": "A4",
+    "count": "64",
+    "image": "https://inventory-tracker.s3.amazonaws.com/30ba6d4a506c19fc7d3f88d18d9f8e2d"
 }
