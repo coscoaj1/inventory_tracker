@@ -35,7 +35,7 @@ inventoryRouter.post("/", upload.single("image"), async (req, res) => {
       sku: body.sku,
       location: body.location,
       count: body.count,
-      photoUrl: result.Location,
+      image: result.Location,
     });
 
     res.json(newProduct);
