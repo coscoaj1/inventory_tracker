@@ -1,5 +1,7 @@
 const express = require("express");
+require("express-async-errors");
 const app = express();
+
 const inventoryRouter = require("./controllers/products");
 const sequelize = require("./utils/database");
 const logger = require("./utils/logger");
