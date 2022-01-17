@@ -28,8 +28,8 @@ function uploadFile(file) {
   return s3.upload(uploadParams).promise();
 }
 
-function deleteFile(awsImg) {
-  const deleteParams = { Bucket: bucketName, Key: awsImg.awskey };
+function deleteFile(deletedRow) {
+  const deleteParams = { Bucket: bucketName, Key: deletedRow.awskey };
 
   return s3.deleteObject(deleteParams).promise();
 }

@@ -9,7 +9,7 @@ const requestLogger = (req, res, next) => {
 };
 
 const errorLogger = (err, req, res, next) => {
-  logger.error("\x1b[31m", err);
+  logger.error("Something Broke:", err);
   next(err);
 };
 

@@ -1,7 +1,8 @@
 const express = require("express");
+const asyncHandler = require("express-async-handler");
 const app = express();
 const inventoryRouter = require("./controllers/products");
-const sequelize = require("./utils/sequelize");
+const sequelize = require("./utils/db");
 const logger = require("./utils/logger");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -12,7 +13,10 @@ const {
   errorResponder,
 } = require("./utils/middleware");
 
-morgan.token("body", (req) => JSON.stringify(req.body));
+process.on("uncaughtException", function (err) {
+  console.log(" UNCAUGHT EXCEPTION ");
+  console.log("[Inside 'uncaughtException' event] " + err.stack || err.message);
+});
 
 sequelize
   .sync()
@@ -27,6 +31,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("build"));
 app.use(morgan(":url :method :response-time ms :body"));
+morgan.token("body", (req) => JSON.stringify(req.body));
 app.use("/api/inventory", inventoryRouter);
 
 app.use(requestLogger);
