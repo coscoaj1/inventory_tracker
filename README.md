@@ -36,17 +36,16 @@ Project is created with:
 ## Features
 
 Full CRUD functionality.  The extra feature I chose to implement was to allow image upload/storage with generated thumbnails. 
-How this works is the thumbnail images are uploaded to the server from the frontend with the add new product form,
-saved on the server with a Node.js middleware called multer, the images then being sent to an AWS S3 bucket for storage 
+How this works is the thumbnail images are uploaded to the server from the frontend with along with the add new product form,
+saved on the server with a Node.js middleware called multer, then piped to an AWS S3 bucket for storage 
 via the aws-sdk for javascript.  S3 then returns a response to the server which contains the bucket url and key for that image, 
 which are then stored on the mySQL database as reference.  Whew!
 
-Deleting a product from the database does also delete the thumbnails from the S3 bucket.  Did not add update functionality for images to 
-the frontend, but every other column for the products can be updated through the UI or by manually sending requests(I use VSCode REST client addon)
+Deleting a product from the database does also delete the thumbnails from the S3 bucket.  Did not add update functionality, but every other column for the products can be updated on the fly through the UI.
 
 ## Room for improvement:
 To do: 
-- Write a few more automated tests.
+- Write more automated tests.
 - Improve the frontend.
 
 
