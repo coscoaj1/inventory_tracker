@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const inventoryRouter = require("./controllers/products");
+const inventoryRouter = require("./controllers/Products");
 const sequelize = require("./utils/db");
 const logger = require("./utils/logger");
 const cors = require("cors");
