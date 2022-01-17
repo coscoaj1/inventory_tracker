@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const inventoryRouter = require("express").Router();
-const Product = require("../models/product");
+const Product = require("../models/Product");
 const { uploadFile, deleteFile } = require("../utils/s3");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
