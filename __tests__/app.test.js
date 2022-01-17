@@ -2,6 +2,8 @@ const app = require("../app");
 const supertest = require("supertest");
 const path = require("path");
 const api = supertest(app);
+const helper = require("./test_helper");
+const Product = require("../models/product");
 
 describe("POST /inventory", () => {
   test("given the item name, SKU, location, and count", async () => {
@@ -21,12 +23,11 @@ describe("POST /inventory", () => {
         image: "abc",
         awskey: "1",
       })
-      .expect(200);
+      .expect(200)
       .expect("Content-Type", /application\/json/);
-
   });
 
-  test("response has product id", async () => {
+  test("response object has a product id field", async () => {
     //should return json object containing item id
     const response = await api
       .post("/api/inventory")
@@ -46,13 +47,12 @@ describe("POST /inventory", () => {
     expect(response.body.id).toBeDefined;
   });
 
-  
-  test("when the product name or sku and is missing", async () => {
+  test("invalid product can't be added", async () => {
+    const initialProducts = await Product.findAll().json();
     const newProduct = {
       location: "A1",
-      count: 13,
     };
-    const response = await api
+    await api
       .post("/api/inventory")
       .attach(
         "image",
@@ -60,28 +60,14 @@ describe("POST /inventory", () => {
       )
       .field(newProduct)
       .expect(401);
-  });
 
-  
-  test("when the location or count is missing", async () => {
-    const newProduct = {
-      product_name: "candy",
-      sku: "123",
-    };
-    const response = await api
-      .post("/api/inventory")
-      .attach(
-        "image",
-        path.resolve(__dirname, "../uploads/f5c548e946f1fa409c73a028825c4339")
-      )
-      .field("/api/inventory")
-      .send(newProduct)
-      .expect(401);
-  });
+    const productsAtEnd = await helper.productsInDb();
 
+    expect(productsAtEnd).toHaveLength(initialProducts.length);
+  });
 });
 
-describe("GET /inventory/all", () => {
+describe("GET requests", () => {
   test("products are returned as json", async () => {
     const response = await api
       .get("/api/inventory/all")
