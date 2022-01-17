@@ -23,7 +23,7 @@ sequelize
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static("build"));
+// app.use(express.static("build"));
 app.use(morgan(":url :method :response-time ms :body"));
 morgan.token("body", (req) => JSON.stringify(req.body));
 app.use("/api/inventory", inventoryRouter);
