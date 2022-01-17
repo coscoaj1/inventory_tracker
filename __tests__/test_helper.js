@@ -5,4 +5,4 @@ const productsInDb = async () => {
   return products;
 };
 
-module.exports = { productsInDb, initialProducts };
+module.exports = { productsInDb };
