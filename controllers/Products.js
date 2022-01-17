@@ -21,6 +21,15 @@ inventoryRouter.post(
     const result = await uploadFile(file);
 
     const { product_name, sku, location, count } = req.body;
+    if (
+      !req.body.product_name ||
+      !req.body.sku ||
+      !req.body.location ||
+      !req.body.count
+    ) {
+      return res.status(401).json({ error: "missing or invalid field" });
+    }
+
     const { Location, Key } = result;
 
     const newProduct = await Product.create({
