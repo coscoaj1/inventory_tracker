@@ -48,7 +48,7 @@ describe("POST /inventory", () => {
   });
 
   test("invalid product can't be added", async () => {
-    const initialProducts = await Product.findAll().json();
+    const initialProducts = await Product.findAll();
     const newProduct = {
       location: "A1",
     };
