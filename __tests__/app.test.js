@@ -2,7 +2,7 @@ const app = require("../app");
 const supertest = require("supertest");
 const path = require("path");
 const api = supertest(app);
-const helper = require("./test_helper");
+const helper = require("../utils/test_helper");
 const Product = require("../models/product");
 
 describe("POST /inventory", () => {
