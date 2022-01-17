@@ -79,3 +79,18 @@ describe("GET requests", () => {
     const response = await api.get("/api/inventory/abcdef").expect(302);
   });
 });
+
+describe("PUT request", () => {
+  test("product count field can be changed", async () => {
+    const testProduct = await Product.findByPk(68);
+    const initialCount = testProduct.count;
+    const updatedProduct = { ...testProduct, ...{ count: initialCount + 1 } };
+
+    const response = await api
+      .put("/inventory/68")
+      .send(updatedProduct)
+      .expect(200);
+
+    expect(response.body.count).toBe(initialCount + 1);
+  });
+});
