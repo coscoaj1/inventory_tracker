@@ -7,7 +7,7 @@ const PASSWORD = process.env.PASSWORD;
 const DATABASE = process.env.DATABASE;
 const BUCKET_NAME = process.env.BUCKET_NAME;
 const REGION = process.env.BUCKET_REGION;
-const ACCESS_KEY_ID = process.envACCESS_KEY_ID;
+const ACCESS_KEY_ID = process.env.ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = process.env.SECRET_ACCESS_KEY;
 
 module.exports = {
