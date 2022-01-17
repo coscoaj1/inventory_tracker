@@ -1,109 +1,95 @@
 const app = require("../app");
 const supertest = require("supertest");
-
+const path = require("path");
 const api = supertest(app);
 
 describe("POST /inventory", () => {
   test("given the item name, SKU, location, and count", async () => {
-    //should save the item name, id, SKU, location and count to the database
-    //should return json object containing item id
+    //should upload image, save the item name, id, SKU, location and count to the database
     //should return status code 200
-    //should specify json in content-type header
     const response = await api
       .post("/api/inventory")
-      .send({
+      .attach(
+        "image",
+        path.resolve(__dirname, "../uploads/f5c548e946f1fa409c73a028825c4339")
+      )
+      .field({
         product_name: "candy",
         sku: "123",
         location: "A1",
         count: 13,
-        id: 1,
+        image: "abc",
+        awskey: "1",
       })
       .expect(200);
+      .expect("Content-Type", /application\/json/);
+
   });
 
   test("response has product id", async () => {
-    const response = await api.post("/api/inventory").send({
-      product_name: "candy",
-      sku: "123",
-      location: "A1",
-      count: 13,
-      id: 1,
-    });
-    expect(response.body.id).toBeDefined;
-  });
-
-  test("content type is application/json", async () => {
+    //should return json object containing item id
     const response = await api
       .post("/api/inventory")
-      .send({
+      .attach(
+        "image",
+        path.resolve(__dirname, "../uploads/f5c548e946f1fa409c73a028825c4339")
+      )
+      .field({
         product_name: "candy",
         sku: "123",
         location: "A1",
         count: 13,
-        id: 0,
-      })
+        image:
+          "https://inventory-tracker.s3.amazonaws.com/c0f69f52643f76e865e5b4cddaa297a7",
+        awskey: "1",
+      });
+    expect(response.body.id).toBeDefined;
+  });
+
+  
+  test("when the product name or sku and is missing", async () => {
+    const newProduct = {
+      location: "A1",
+      count: 13,
+    };
+    const response = await api
+      .post("/api/inventory")
+      .attach(
+        "image",
+        path.resolve(__dirname, "../uploads/f5c548e946f1fa409c73a028825c4339")
+      )
+      .field(newProduct)
+      .expect(401);
+  });
+
+  
+  test("when the location or count is missing", async () => {
+    const newProduct = {
+      product_name: "candy",
+      sku: "123",
+    };
+    const response = await api
+      .post("/api/inventory")
+      .attach(
+        "image",
+        path.resolve(__dirname, "../uploads/f5c548e946f1fa409c73a028825c4339")
+      )
+      .field("/api/inventory")
+      .send(newProduct)
+      .expect(401);
+  });
+
+});
+
+describe("GET /inventory/all", () => {
+  test("products are returned as json", async () => {
+    const response = await api
+      .get("/api/inventory/all")
+      .expect(200)
       .expect("Content-Type", /application\/json/);
   });
-  test("when the product name is missing", async () => {
-    const newProduct = {
-      sku: "123",
-      location: "A1",
-      count: 13,
-      id: 0,
-    };
-    const response = await api
-      .post("/api/inventory")
-      .send(newProduct)
-      .expect(401);
-  });
 
-  test("when the sku is missing", async () => {
-    const newProduct = {
-      product_name: "candy",
-      location: "A1",
-      count: 13,
-      id: 0,
-    };
-    const response = await api
-      .post("/api/inventory")
-      .send(newProduct)
-      .expect(401);
-  });
-
-  test("when the location is missing", async () => {
-    const newProduct = {
-      product_name: "candy",
-      sku: "123",
-      count: 13,
-      id: 0,
-    };
-    const response = await api
-      .post("/api/inventory")
-      .send(newProduct)
-      .expect(401);
-  });
-  test("when the count is missing", async () => {
-    const newProduct = {
-      product_name: "candy",
-      sku: "123",
-      location: "A1",
-      id: 0,
-    };
-    const response = await api
-      .post("/api/inventory")
-      .send(newProduct)
-      .expect(401);
-  });
-  test("when the id is missing", async () => {
-    const newProduct = {
-      product_name: "candy",
-      sku: "123",
-      location: "A1",
-      id: 0,
-    };
-    const response = await api
-      .post("/api/inventory")
-      .send(newProduct)
-      .expect(401);
+  test("if a user navigates to invalid page", async () => {
+    const response = await api.get("/api/inventory/abcdef").expect(302);
   });
 });
