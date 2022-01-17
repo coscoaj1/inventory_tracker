@@ -97,11 +97,11 @@ describe("PUT request", () => {
 
 describe("DELETE", () => {
   test("Delete request returns status 200", async () => {
-    const lastItemIndex = (await helper.productsInDb().length) - 1;
-    const lastItem = await helper.productsInDb()[0];
-    console.log(lastItem);
-    // const id = await helper.productsInDb()[lastItemIndex].id;
+    const products = await helper.productsInDb();
+    const id = products[products.length - 1].id;
+    // const id = products[lastItem].id;
+    console.log(id);
 
-    await api.del(`/api/inventory/${id}`).expect(200);
+    await api.del(`/api/inventory/${id}`).expect(204);
   });
 });
