@@ -1,5 +1,4 @@
 const express = require("express");
-const asyncHandler = require("express-async-handler");
 const app = express();
 const inventoryRouter = require("./controllers/products");
 const sequelize = require("./utils/db");
@@ -12,11 +11,6 @@ const {
   errorLogger,
   errorResponder,
 } = require("./utils/middleware");
-
-process.on("uncaughtException", function (err) {
-  console.log(" UNCAUGHT EXCEPTION ");
-  console.log("[Inside 'uncaughtException' event] " + err.stack || err.message);
-});
 
 sequelize
   .sync()
