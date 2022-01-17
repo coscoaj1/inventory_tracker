@@ -45,7 +45,7 @@ Deleting a product from the database does also delete the thumbnails from the S3
 
 ## Room for improvement:
 To do: 
-- Write more automated tests.
+- Write more automated tests, figure out how to mock the file uploads and database.
 - Improve the frontend.
 
 
