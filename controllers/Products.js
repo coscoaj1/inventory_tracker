@@ -1,22 +1,18 @@
 const inventoryRouter = require("express").Router();
 const Product = require("../models/product");
-const { uploadFile } = require("./../utils/s3");
+const { uploadFile, deleteFile } = require("./../utils/s3");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+const db = require("../utils/database");
 
 inventoryRouter.get("/all", async (req, res, next) => {
-  let products;
-  try {
-    products = await Product.findAll();
-    console.log(products);
-  } catch (error) {
+  const products = await Product.findAll().catch((error) => {
     next(error);
-  }
+  });
   res.json(products);
 });
 
 inventoryRouter.post("/", upload.single("image"), async (req, res, next) => {
-  let newProduct;
   const file = req.file;
   const body = req.body;
   const { product_name, sku, location, count } = req.body;
@@ -24,13 +20,15 @@ inventoryRouter.post("/", upload.single("image"), async (req, res, next) => {
     return res.status(401).json({ error: "missing or invalid field" });
   }
   const result = await uploadFile(file);
+  console.log(result);
 
-  newProduct = await Product.create({
+  const newProduct = await Product.create({
     product_name: body.product_name,
     sku: body.sku,
     location: body.location,
     count: body.count,
     image: result.Location,
+    awskey: result.Key,
   }).catch((error) => {
     next(error);
   });
@@ -39,6 +37,11 @@ inventoryRouter.post("/", upload.single("image"), async (req, res, next) => {
 });
 
 inventoryRouter.delete("/:id", async (req, res, next) => {
+  const myId = req.params.id;
+  const awsImg = await Product.findByPk(myId);
+
+  const result = await deleteFile(awsImg);
+  console.log(result);
   await Product.destroy({
     where: { id: req.params.id },
   }).catch((error) => {

@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const sequelize = require("../utils/database");
+const sequelize = require("../utils/sequelize");
 
 const Product = sequelize.define("products", {
   id: {
@@ -25,6 +25,10 @@ const Product = sequelize.define("products", {
     allowNull: false,
   },
   image: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  awskey: {
     type: Sequelize.STRING,
     allowNull: true,
   },
