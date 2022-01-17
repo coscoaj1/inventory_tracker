@@ -94,3 +94,11 @@ describe("PUT request", () => {
     expect(response.body.count).toBe(initialCount + 1);
   });
 });
+
+describe("DELETE", () => {
+  test("Delete request returns status 200", async () => {
+    const id = (await helper.productsInDb().length) - 1;
+
+    await api.del(`/api/inventory/${id}`).expect(200);
+  });
+});
