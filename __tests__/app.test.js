@@ -87,7 +87,7 @@ describe("PUT request", () => {
     const updatedProduct = { ...testProduct, ...{ count: initialCount + 1 } };
 
     const response = await api
-      .put("/inventory/68")
+      .put("/api/inventory/68")
       .send(updatedProduct)
       .expect(200);
 
