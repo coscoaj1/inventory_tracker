@@ -3,7 +3,7 @@ const supertest = require("supertest");
 const path = require("path");
 const api = supertest(app);
 const helper = require("../utils/test_helper");
-const Product = require("../models/product");
+const Product = require("../models/Product");
 
 describe("POST /inventory", () => {
   test("given the item name, SKU, location, and count", async () => {
