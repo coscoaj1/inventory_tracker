@@ -23,7 +23,7 @@ Content-Type: application/json
     "product_name": "Dried Chiles",
     "sku": "1100112",
     "location": "A7",
-    "count": 25,
+    "count": 26,
     "image": "https://inventory-tracker.s3.amazonaws.com/c0f69f52643f76e865e5b4cddaa297a7",
     "awskey": "c0f69f52643f76e865e5b4cddaa297a7"
 }
