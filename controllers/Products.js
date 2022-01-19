@@ -5,6 +5,8 @@ const { uploadFile, deleteFile } = require("../utils/s3");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
+/*eslint no-unused-vars: ["error", { "args": "none" }]*/
+
 inventoryRouter.get(
   "/all",
   asyncHandler(async (req, res, next) => {
@@ -50,7 +52,7 @@ inventoryRouter.delete(
   asyncHandler(async (req, res, next) => {
     const id = req.params.id;
     const deletedRow = await Product.findByPk(id);
-    const result = await deleteFile(deletedRow);
+    await deleteFile(deletedRow);
 
     await Product.destroy({
       where: { id: id },
@@ -64,7 +66,7 @@ inventoryRouter.put(
   asyncHandler(async (req, res, next) => {
     const body = req.body;
     const id = req.params.id;
-    const updatedProduct = await Product.update(
+    await Product.update(
       {
         product_name: body.product_name,
         sku: body.sku,

@@ -19,7 +19,7 @@ const errorResponder = (err, req, res, next) => {
   next(err);
 };
 
-const unknownEndpoint = (req, res, next) => {
+const unknownEndpoint = (req, res) => {
   res.redirect("/api/inventory/error");
 };
 
