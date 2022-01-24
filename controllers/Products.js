@@ -1,9 +1,15 @@
 const asyncHandler = require("express-async-handler");
 const inventoryRouter = require("express").Router();
 const Product = require("../models/Product");
-const { uploadFile, deleteFile } = require("../utils/s3");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const storage = require("../upload-config");
+const sharp = require("sharp");
+const upload = multer(storage);
+const path = require("path");
+const fs = require("fs");
+
+const { uploadFile, deleteFile } = require("../utils/s3");
+// const upload = multer({ dest: "uploads/" });
 
 /*eslint no-unused-vars: ["error", { "args": "none" }]*/
 
@@ -19,9 +25,19 @@ inventoryRouter.post(
   "/",
   upload.single("image"),
   asyncHandler(async (req, res, next) => {
-    const file = req.file;
-    const result = await uploadFile(file);
+    const key = req.file;
+    console.log(key);
+    const dateNow = `./uploads/${Date.now()}-resized.jpg`;
+    const image = await sharp(req.file.path).resize(50, 50);
 
+    await image.toFile(dateNow);
+
+    console.log(dateNow);
+    const result = await uploadFile(dateNow, key);
+
+    console.log(result);
+    fs.unlinkSync(req.file.path);
+    fs.unlinkSync(dateNow);
     const { product_name, sku, location, count } = req.body;
     if (
       !req.body.product_name ||
