@@ -33,7 +33,7 @@ inventoryRouter.post(
     await image.toFile(dateNow);
 
     console.log(dateNow);
-    const result = await uploadFile(dateNow, dateNow);
+    const result = await uploadFile(dateNow, key);
 
     console.log(result);
     fs.unlinkSync(req.file.path);
