@@ -12,9 +12,7 @@
 
 ## General info
 
-To get this app working, simply navigate to the live version link above.  I chose to create a fully functioning frontend in addition 
-to the backend to make the app easier to test out for the reviewers, since downloading and installing locally isn't really an option with all the 
-database and AWS passwords required to run the app. I did not try to optimize the frontend at all for any measures
+Deployed version link is above.  I have not yet tried to optimize the frontend at all for any measures
 such as accessibility, responsiveness, etc.  I tried to focus on high quality backend code through proper application and folder structuring,
 error handling and writing automated tests as I went.
 
@@ -25,8 +23,8 @@ Project is created with:
 * Node.js
 * Express.js
 * Multer.js for file uploads
-* MySQL database/ SequelizeORM
-* AWS S3 bucket for image storage
+* Amazon RDS MySQL database/ SequelizeORM
+* Amazon S3 bucket for image storage
 * express-async-handler package(eliminates try-catch blocks!)
 * Backend deployed on Heroku
 * Testing with Jest/Supertest
@@ -35,13 +33,11 @@ Project is created with:
 
 ## Features
 
-Full CRUD functionality.  The extra feature I chose to implement was to allow image upload/storage with generated thumbnails. 
-How this works is the thumbnail images are uploaded to the server from the frontend along with the new product form using the FormData Web API.
-Saved on the server with a Node.js middleware called multer, proccesed to reduce image size with the Sharp package, then piped to an AWS S3 bucket for storage 
-via the aws-sdk for javascript.  S3 then returns a response to the server which contains the bucket url and key for that image, 
-which are then stored on the mySQL database as reference on the appropriate row in the product table  
+Full CRUD functionality.  The app allows image uploads with generated thumbnails. 
+Images are procesed to reduce image size with sharp, then piped to an AWS S3 bucket for storage 
+via the aws-sdk for javascript.  
 
-Deleting a product from the database does also delete the thumbnails from the S3 bucket.  Did not add update functionality, but every other column for the products can be updated dynamically through the UI.
+Deleting a product from the database does also delete the thumbnails from the S3 bucket. 
 
 ## Room for improvement:
 To do: 
