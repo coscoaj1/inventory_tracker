@@ -1,4 +1,4 @@
-# This is an Inventory Tracker
+# Inventory Tracker
 * Live version [_here_](https://inventory-crud.netlify.app/)
 * Frontend repository [_here_](https://github.com/coscoaj1/inventory_frontend)
 
