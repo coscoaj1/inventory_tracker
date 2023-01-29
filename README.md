@@ -33,7 +33,7 @@ Project is created with:
 
 ## Features
 
-Full CRUD functionality.  The app allows image uploads with generated thumbnails. 
+CRUD functionality.  The app allows image uploads with generated thumbnails. 
 Images are procesed to reduce image size with sharp, then piped to an AWS S3 bucket for storage 
 via the aws-sdk for javascript.  
 
