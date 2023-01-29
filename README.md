@@ -14,7 +14,7 @@
 
 Deployed version link is above.  I have not yet tried to optimize the frontend at all for any measures
 such as accessibility, responsiveness, etc.  I tried to focus on high quality backend code through proper application and folder structuring,
-error handling and writing automated tests as I went.
+error handling and writing automated tests.
 
 ## Technologies
 
