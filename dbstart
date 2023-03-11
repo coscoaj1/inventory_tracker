@@ -1,0 +1,6 @@
+PGUSER=postgres_user \
+  PGHOST=postgres.cpltktdqaq4h.us-east-1.rds.amazonaws.com \
+  PGPASSWORD=CfwLb3TN0Iz0hIPVOSqC \
+  PGDATABASE=postgres \
+  PGPORT=5432 \
+  node index.js

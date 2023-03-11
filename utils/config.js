@@ -1,10 +1,11 @@
 require("dotenv").config();
 
 const PORT = process.env.PORT;
-const MYSQL_URI = process.env.MYSQL_URI;
-const USER = process.env.USER;
-const PASSWORD = process.env.PASSWORD;
-const DATABASE = process.env.DATABASE;
+const PG_HOST = process.env.PG_HOST;
+const PG_PORT = process.env.PG_PORT;
+const PG_USER = process.env.PG_USER;
+const PG_PASSWORD = process.env.PG_PASSWORD;
+const PG_DATABASE = process.env.PG_DATABASE;
 const BUCKET_NAME = process.env.BUCKET_NAME;
 const REGION = process.env.BUCKET_REGION;
 const ACCESS_KEY_ID = process.env.ACCESS_KEY_ID;
@@ -15,11 +16,12 @@ module.exports = {
   REGION,
   ACCESS_KEY_ID,
   SECRET_ACCESS_KEY,
-  MYSQL_URI,
+  PG_HOST,
+  PG_PORT,
   PORT,
-  USER,
-  PASSWORD,
-  DATABASE,
+  PG_USER,
+  PG_PASSWORD,
+  PG_DATABASE,
 };
 
 //file to handle all environment variables
