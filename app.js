@@ -12,19 +12,17 @@ const {
   errorResponder,
 } = require("./utils/middleware");
 
-// sequelize
-//   .sync()
-//   .then(() => {
-//     logger.info("connected to Amazon RDS");
-//   })
-//   .catch((error) => {
-//     logger.error("error connecting to Amazon RDS:", error.message);
-//   });
+
 (async () => {
-  const client = await getClient();
-  client.connect();
-  console.log("connected to DB");
-  await client.end();
+  try {
+    const client = await getClient();
+    await client.connect();
+    logger.info("connected to DB");
+    const result = await client.query("SELECT * FROM products");
+    console.table(result.rows);
+  } catch (error) {
+    logger.error(error);
+  }
 })();
 
 app.use(cors());
