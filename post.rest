@@ -1,4 +1,4 @@
-POST http://localhost:3001/
+POST http://localhost:3001/api/inventory/
 Content-Type: application/json
 
 {
@@ -8,22 +8,20 @@ Content-Type: application/json
     "count": "13"
 }
 ###
-DELETE http://localhost:3001/2
+DELETE http://localhost:3001/api/inventory/
 
 ###
 
-GET http://localhost:3001/
+GET http://localhost:3001/api/inventory/all
 
 ###
 
-PUT http://localhost:3001/api/inventory/68
+PUT http://localhost:3001/api/inventory/1
 Content-Type: application/json
 
 {
     "product_name": "Dried Chiles",
     "sku": "1100112",
     "location": "A7",
-    "count": 26,
-    "image": "https://inventory-tracker.s3.amazonaws.com/c0f69f52643f76e865e5b4cddaa297a7",
-    "awskey": "c0f69f52643f76e865e5b4cddaa297a7"
+    "count": 26
 }
