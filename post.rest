@@ -12,7 +12,7 @@ DELETE http://localhost:3001/api/inventory/0
 
 ###
 
-GET http://localhost:3001/1
+GET http://localhost:3001/
 
 ###
 
