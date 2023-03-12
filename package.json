@@ -7,7 +7,7 @@
     "node": "18.x"
   },
   "scripts": {
-    "start": "tsc && node dist/index.js",
+    "start": "tsc && node index.js",
     "dev": "nodemon index.js",
     "test": "npx jest",
     "lint": "eslint ."
