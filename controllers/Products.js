@@ -22,3 +22,22 @@ router.post("/", async (req, res) => {
   );
   res.send(rows[0]);
 });
+
+// create put route with id, product_name, sku, location, count
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { product_name, sku, location, count } = req.body;
+  const { rows } = await db.query(
+    "UPDATE products SET product_name = $1, sku = $2, location = $3, count = $4 WHERE id = $5",
+    [product_name, sku, location, count, id]
+  );
+  res.send(rows[0]);
+});
+
+// create delete route with id
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { rows } = await db.query("DELETE FROM products WHERE id = $1", [id]);
+  res.send(rows[0]);
+}
+);

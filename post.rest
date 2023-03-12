@@ -8,7 +8,7 @@ Content-Type: application/json
     "count": "13"
 }
 ###
-DELETE http://localhost:3001/api/inventory/0
+DELETE http://localhost:3001/2
 
 ###
 
