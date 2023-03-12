@@ -1,4 +1,5 @@
 const Router = require("express-promise-router");
+import { Request, Response, NextFunction } from "express"
  
 const db = require("../utils/db");
 
@@ -7,14 +8,14 @@ const router = new Router();
 module.exports = router;
 
 
-router.get("/all", async (req, res) => {
+router.get("/all", async (req: Request, res: Response) => {
   const { rows } = await db.query("SELECT * FROM products");
   res.send(rows);
   console.table(rows);
 });
 
 // create post route with id, product_name, sku, location, count
-router.post("/", async (req, res) => {
+router.post("/", async (req: Request, res: Response) => {
   const { product_name, sku, location, count } = req.body;
   const { rows } = await db.query(
     "INSERT INTO products (product_name, sku, location, count) VALUES ($1, $2, $3, $4)",
@@ -24,7 +25,7 @@ router.post("/", async (req, res) => {
 });
 
 // create put route with id, product_name, sku, location, count
-router.put("/:id", async (req, res) => {
+router.put("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   const { product_name, sku, location, count } = req.body;
   const { rows } = await db.query(
@@ -35,7 +36,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // create delete route with id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   const { rows } = await db.query("DELETE FROM products WHERE id = $1", [id]);
   res.send(rows[0]);
