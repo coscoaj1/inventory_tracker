@@ -1,14 +1,14 @@
-const config = require("./config");
-const { Pool } = require("pg");
+import * as config from "./config";
+import { Pool } from "pg";
  
 const pool = new Pool({host: config.PG_HOST,
-  port: config.PG_PORT,
+  port: parseInt(config.PG_PORT || "3001"),
   user: config.PG_USER,
   password: config.PG_PASSWORD,
   database: config.PG_DATABASE,});
  
-module.exports = {
-  query: (text: string, params: Array<any>) => pool.query(text, params),
+export = {
+  query: (text: string, params: string[]) => pool.query(text, params),
 };
 
 

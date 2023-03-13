@@ -1,6 +1,7 @@
-require("dotenv").config();
+import * as dotenv from 'dotenv'
+dotenv.config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT
 const PG_HOST = process.env.PG_HOST;
 const PG_PORT = process.env.PG_PORT;
 const PG_USER = process.env.PG_USER;

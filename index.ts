@@ -1,4 +1,3 @@
-require("dotenv").config();
 import app from "./app";
 import http from "http";
 import * as config from "./utils/config"
