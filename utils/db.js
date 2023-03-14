@@ -22,15 +22,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+const config = __importStar(require("./config"));
+const pg_1 = require("pg");
+const pool = new pg_1.Pool({ host: config.PG_HOST,
+    port: parseInt(config.PG_PORT || "3001"),
+    user: config.PG_USER,
+    password: config.PG_PASSWORD,
+    database: config.PG_DATABASE, });
+module.exports = {
+    query: (text, params) => pool.query(text, params),
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const http_1 = __importDefault(require("http"));
-const config = __importStar(require("./utils/config"));
-const logger = __importStar(require("./utils/logger"));
-const server = http_1.default.createServer(app_1.default);
-server.listen(config.PORT, () => {
-    logger.info(`Server running on port ${config.PORT}`);
-});

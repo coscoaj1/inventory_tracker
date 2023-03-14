@@ -1,6 +1,6 @@
 import express, { Request } from "express"
 const app = express();
-const inventoryRouter = require("./controllers/Products");
+import { router } from "./controllers/Products";
 const cors = require("cors");
 const morgan = require("morgan");
 const {
@@ -10,14 +10,13 @@ const {
   errorResponder,
 } = require("./utils/middleware");
 
-
 app.use(cors());
 app.use(express.json());
 // app.use(express.static("build"));
 app.use(morgan(":url :method :response-time ms :body"));
 morgan.token("body", (req: Request) => JSON.stringify(req.body));
-app.use("/", inventoryRouter, express.static("uploads"));
-app.use("/api/inventory", inventoryRouter);
+app.use("/", router, express.static("uploads"));
+app.use("/api/inventory", router);
 
 app.use(requestLogger);
 app.use(errorLogger);

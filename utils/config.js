@@ -22,15 +22,27 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const http_1 = __importDefault(require("http"));
-const config = __importStar(require("./utils/config"));
-const logger = __importStar(require("./utils/logger"));
-const server = http_1.default.createServer(app_1.default);
-server.listen(config.PORT, () => {
-    logger.info(`Server running on port ${config.PORT}`);
-});
+exports.PG_DATABASE = exports.PG_PASSWORD = exports.PG_USER = exports.PORT = exports.PG_PORT = exports.PG_HOST = exports.SECRET_ACCESS_KEY = exports.ACCESS_KEY_ID = exports.REGION = exports.BUCKET_NAME = void 0;
+const dotenv = __importStar(require("dotenv"));
+dotenv.config();
+const PORT = process.env.PORT;
+exports.PORT = PORT;
+const PG_HOST = process.env.PG_HOST;
+exports.PG_HOST = PG_HOST;
+const PG_PORT = process.env.PG_PORT;
+exports.PG_PORT = PG_PORT;
+const PG_USER = process.env.PG_USER;
+exports.PG_USER = PG_USER;
+const PG_PASSWORD = process.env.PG_PASSWORD;
+exports.PG_PASSWORD = PG_PASSWORD;
+const PG_DATABASE = process.env.PG_DATABASE;
+exports.PG_DATABASE = PG_DATABASE;
+const BUCKET_NAME = process.env.BUCKET_NAME;
+exports.BUCKET_NAME = BUCKET_NAME;
+const REGION = process.env.BUCKET_REGION;
+exports.REGION = REGION;
+const ACCESS_KEY_ID = process.env.ACCESS_KEY_ID;
+exports.ACCESS_KEY_ID = ACCESS_KEY_ID;
+const SECRET_ACCESS_KEY = process.env.SECRET_ACCESS_KEY;
+exports.SECRET_ACCESS_KEY = SECRET_ACCESS_KEY;
