@@ -55,12 +55,19 @@ router.put("/:id", async (req: Request, res: Response) => {
   res.send(rows[0]);
 });
 
-router.delete("/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { rows } = await db.query("DELETE FROM products WHERE id = $1", [id]);
-  res.send(rows[0]);
-}
-);
+// router.delete(
+//   "/:id",
+//     async (req, res, next) => {
+//     const id = req.params.id;
+//     const deletedRow = await Product.findByPk(id);
+//     await deleteFile(deletedRow);
+
+//     await Product.destroy({
+//       where: { id: id },
+//     });
+//     res.status(204).send("OK");
+//   })
+// );
 
 router.get("/error", (req: Request, res: Response) => {
   res.send("The URL you are trying to reach does not exist.");

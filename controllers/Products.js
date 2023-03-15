@@ -48,11 +48,18 @@ exports.router.put("/:id", (req, res) => __awaiter(void 0, void 0, void 0, funct
     const { rows } = yield db_1.default.query("UPDATE products SET product_name = $1, sku = $2, location = $3, count = $4 WHERE id = $5", [product_name, sku, location, count, id]);
     res.send(rows[0]);
 }));
-exports.router.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const { rows } = yield db_1.default.query("DELETE FROM products WHERE id = $1", [id]);
-    res.send(rows[0]);
-}));
+// router.delete(
+//   "/:id",
+//     async (req, res, next) => {
+//     const id = req.params.id;
+//     const deletedRow = await Product.findByPk(id);
+//     await deleteFile(deletedRow);
+//     await Product.destroy({
+//       where: { id: id },
+//     });
+//     res.status(204).send("OK");
+//   })
+// );
 exports.router.get("/error", (req, res) => {
     res.send("The URL you are trying to reach does not exist.");
 });
