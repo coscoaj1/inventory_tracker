@@ -1,4 +1,4 @@
-import * as config from "./config";
+import config from "./config";
 import { Pool } from "pg";
  
 const pool = new Pool({host: config.PG_HOST,
@@ -7,7 +7,7 @@ const pool = new Pool({host: config.PG_HOST,
   password: config.PG_PASSWORD,
   database: config.PG_DATABASE,});
  
-export = {
+export default {
   query: (text: string, params: string[]) => pool.query(text, params),
 };
 

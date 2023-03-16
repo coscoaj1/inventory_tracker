@@ -1,23 +1,20 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const app = (0, express_1.default)();
-const Products_1 = require("./controllers/Products");
-const cors = require("cors");
-const morgan = require("morgan");
-const { requestLogger, unknownEndpoint, errorLogger, errorResponder, } = require("./utils/middleware");
+import express from "express";
+const app = express();
+import { router } from "./controllers/Products.js";
+import cors from "cors";
+import morgan from "morgan";
+import { requestLogger, 
+//   unknownEndpoint,
+errorLogger, errorResponder, } from "./utils/middleware.js";
 app.use(cors());
-app.use(express_1.default.json());
-// app.use(express.static("build"));
+app.use(express.json());
+app.use(express.static("build"));
 app.use(morgan(":url :method :response-time ms :body"));
 morgan.token("body", (req) => JSON.stringify(req.body));
-app.use("/", Products_1.router, express_1.default.static("uploads"));
-app.use("/api/inventory", Products_1.router);
+// app.use("/", router, express.static("uploads"));
+app.use("/api/inventory", router);
 app.use(requestLogger);
 app.use(errorLogger);
 app.use(errorResponder);
-app.use(unknownEndpoint);
-exports.default = app;
+// app.use(unknownEndpoint);
+export default app;

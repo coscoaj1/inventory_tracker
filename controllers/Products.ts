@@ -1,59 +1,64 @@
 import Router from "express-promise-router";
 import { Request, Response, NextFunction } from "express"
-import sharp from "sharp";
-import multer from "multer";
-import fs from "fs";
-const storage = require("../upload-config");
-const upload = multer(storage);
-const { uploadFile, deleteFile } = require("../utils/s3");
+// import sharp from "sharp";
+// import multer from "multer";
+// import fs from "fs";
+// const storage = require("../upload-config");
+// const upload = multer(storage);
+// const { uploadFile, deleteFile } = require("../utils/s3");
  
-import db from "../utils/db";
+// import db from "../utils/db";
 
 
 export const router = Router();
 
-
-router.get("/all", async (req: Request, res: Response) => {
-  const { rows } = await db.query("SELECT * FROM products", []);
-  res.send(rows);
-  console.table(rows);
+//return hello world
+router.get("/", (req: Request, res: Response) => {
+  res.send("Hello World!");
 });
 
-router.post(
-  "/",
-  upload.single("image"),
-    async (req: Request, res: Response) => {
-    const key = req.file;
-    console.log(key);
-    const dateNow = `./uploads/${Date.now()}-resized.jpg`;
-    const image = await sharp(req.file!.path).resize(50, 50);
 
-    await image.toFile(dateNow);
+// router.get("/all", async (req: Request, res: Response) => {
+//   const { rows } = await db.query("SELECT * FROM products", []);
+//   res.send(rows);
+//   console.table(rows);
+// });
 
-    console.log(dateNow);
-    const result = await uploadFile(dateNow, key);
+// router.post(
+//   "/",
+//   upload.single("image"),
+//     async (req: Request, res: Response) => {
+//     const key = req.file;
+//     console.log(key);
+//     const dateNow = `./uploads/${Date.now()}-resized.jpg`;
+//     const image = await sharp(req.file!.path).resize(50, 50);
 
-    console.log(result);
-    fs.unlinkSync(req.file!.path);
-    fs.unlinkSync(dateNow);
+//     await image.toFile(dateNow);
 
-  const { product_name, sku, location, count } = req.body;
-  const { rows } = await db.query(
-    "INSERT INTO products (product_name, sku, location, count) VALUES ($1, $2, $3, $4)",
-    [product_name, sku, location, count]
-  );
-  res.send(rows[0]);
-});
+//     console.log(dateNow);
+//     const result = await uploadFile(dateNow, key);
 
-router.put("/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { product_name, sku, location, count } = req.body;
-  const { rows } = await db.query(
-    "UPDATE products SET product_name = $1, sku = $2, location = $3, count = $4 WHERE id = $5",
-    [product_name, sku, location, count, id]
-  );
-  res.send(rows[0]);
-});
+//     console.log(result);
+//     fs.unlinkSync(req.file!.path);
+//     fs.unlinkSync(dateNow);
+
+//   const { product_name, sku, location, count } = req.body;
+//   const { rows } = await db.query(
+//     "INSERT INTO products (product_name, sku, location, count) VALUES ($1, $2, $3, $4)",
+//     [product_name, sku, location, count]
+//   );
+//   res.send(rows[0]);
+// });
+
+// router.put("/:id", async (req: Request, res: Response) => {
+//   const { id } = req.params;
+//   const { product_name, sku, location, count } = req.body;
+//   const { rows } = await db.query(
+//     "UPDATE products SET product_name = $1, sku = $2, location = $3, count = $4 WHERE id = $5",
+//     [product_name, sku, location, count, id]
+//   );
+//   res.send(rows[0]);
+// });
 
 // router.delete(
 //   "/:id",
@@ -69,8 +74,8 @@ router.put("/:id", async (req: Request, res: Response) => {
 //   })
 // );
 
-router.get("/error", (req: Request, res: Response) => {
-  res.send("The URL you are trying to reach does not exist.");
-});
+// router.get("/error", (req: Request, res: Response) => {
+//   res.send("The URL you are trying to reach does not exist.");
+// });
 
-export default { router };
+// module.exports = router;

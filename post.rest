@@ -15,6 +15,9 @@ DELETE http://localhost:3001/api/inventory/
 GET http://localhost:3001/api/inventory/all
 
 ###
+GET http://localhost:3001/api/inventory/
+
+###
 
 PUT http://localhost:3001/api/inventory/1
 Content-Type: application/json

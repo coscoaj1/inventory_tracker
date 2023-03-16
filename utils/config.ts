@@ -1,4 +1,4 @@
-import * as dotenv from 'dotenv'
+import dotenv from 'dotenv'
 dotenv.config();
 
 const PORT = process.env.PORT
@@ -12,7 +12,7 @@ const REGION = process.env.BUCKET_REGION;
 const ACCESS_KEY_ID = process.env.ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = process.env.SECRET_ACCESS_KEY;
 
-export {
+export default {
   BUCKET_NAME,
   REGION,
   ACCESS_KEY_ID,

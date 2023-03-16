@@ -1,7 +1,7 @@
-const config = require("./config");
+import config from "./config";
 const fs = require("fs");
-import S3 from 'aws-sdk/clients/s3'
-const path = require("path");
+const S3 = require("aws-sdk/clients/s3");
+import path from "path";
 
 const region = config.REGION;
 const accessKeyId = config.ACCESS_KEY_ID;

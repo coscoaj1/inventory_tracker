@@ -1,17 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const config = require("./config");
+import config from "./config";
 const fs = require("fs");
-const s3_1 = __importDefault(require("aws-sdk/clients/s3"));
-const path = require("path");
+const S3 = require("aws-sdk/clients/s3");
 const region = config.REGION;
 const accessKeyId = config.ACCESS_KEY_ID;
 const secretAccessKey = config.SECRET_ACCESS_KEY;
 const bucketName = config.BUCKET_NAME;
-const s3 = new s3_1.default({
+const s3 = new S3({
     region,
     accessKeyId,
     secretAccessKey,

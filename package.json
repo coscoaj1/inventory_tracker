@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "engines": {
     "node": "18.x"
   },
   "scripts": {
     "start": "tsc && node index.js",
-    "dev": "nodemon index.js",
+    "dev": "tsc && nodemon index.js",
     "test": "npx jest",
     "lint": "eslint ."
   },
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@aws-sdk/types": "^3.289.0",
+    "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/http-errors": "^2.0.1",
     "@types/morgan": "^1.9.4",
