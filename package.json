@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "tsc && node index.js",
-    "dev": "tsc && nodemon index.js",
+    "dev": "tsc && nodemon -e .ts index.js",
     "test": "npx jest",
     "lint": "eslint ."
   },

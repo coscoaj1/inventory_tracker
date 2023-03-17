@@ -3,9 +3,7 @@ const app = express();
 import { router } from "./controllers/Products.js";
 import cors from "cors";
 import morgan from "morgan";
-import { requestLogger, 
-//   unknownEndpoint,
-errorLogger, errorResponder, } from "./utils/middleware.js";
+import { requestLogger, errorLogger, errorResponder, unknownEndpoint } from "./utils/middleware.js";
 app.use(cors());
 app.use(express.json());
 app.use(express.static("build"));
@@ -16,5 +14,5 @@ app.use("/api/inventory", router);
 app.use(requestLogger);
 app.use(errorLogger);
 app.use(errorResponder);
-// app.use(unknownEndpoint);
+app.use(unknownEndpoint);
 export default app;

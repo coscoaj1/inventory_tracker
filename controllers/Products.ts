@@ -1,13 +1,13 @@
 import Router from "express-promise-router";
 import { Request, Response, NextFunction } from "express"
-// import sharp from "sharp";
-// import multer from "multer";
-// import fs from "fs";
-// const storage = require("../upload-config");
-// const upload = multer(storage);
-// const { uploadFile, deleteFile } = require("../utils/s3");
+import sharp from "sharp";
+import multer from "multer";
+import fs from "fs";
+import storage from "../upload-config.js";
+const upload = multer(storage);
+import { uploadFile, deleteFile } from "../utils/s3.js";
  
-// import db from "../utils/db";
+import db from "../utils/db.js";
 
 
 export const router = Router();
@@ -18,11 +18,11 @@ router.get("/", (req: Request, res: Response) => {
 });
 
 
-// router.get("/all", async (req: Request, res: Response) => {
-//   const { rows } = await db.query("SELECT * FROM products", []);
-//   res.send(rows);
-//   console.table(rows);
-// });
+router.get("/all", async (req: Request, res: Response) => {
+  const { rows } = await db.query("SELECT * FROM products", []);
+  res.send(rows);
+  console.table(rows);
+});
 
 // router.post(
 //   "/",
@@ -60,6 +60,13 @@ router.get("/", (req: Request, res: Response) => {
 //   res.send(rows[0]);
 // });
 
+// router.delete("/:id", async (req: Request, res: Response) => {
+//   const { id } = req.params;
+//   const { rows } = await db.query("DELETE FROM products WHERE id = $1", [id]);
+//   res.send(rows[0]);
+// });
+
+
 // router.delete(
 //   "/:id",
 //     async (req, res, next) => {
@@ -74,8 +81,8 @@ router.get("/", (req: Request, res: Response) => {
 //   })
 // );
 
-// router.get("/error", (req: Request, res: Response) => {
-//   res.send("The URL you are trying to reach does not exist.");
-// });
+router.get("/error", (req: Request, res: Response) => {
+  res.send("The URL you are trying to reach does not exist.");
+});
 
-// module.exports = router;
+export default router;

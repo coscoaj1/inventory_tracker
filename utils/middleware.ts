@@ -22,7 +22,7 @@ export const errorResponder = (err: HttpError, req: Request, res: Response, next
   next(err);
 };
 
-export const unknownEndpoint = (req: HttpError, res: Response) => {
+export const unknownEndpoint = (req: Request, res: Response) => {
   res.redirect("/api/inventory/error");
 };
 

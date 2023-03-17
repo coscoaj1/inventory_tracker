@@ -1,21 +1,27 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import Router from "express-promise-router";
-// import sharp from "sharp";
-// import multer from "multer";
-// import fs from "fs";
-// const storage = require("../upload-config");
-// const upload = multer(storage);
-// const { uploadFile, deleteFile } = require("../utils/s3");
-// import db from "../utils/db";
+import multer from "multer";
+import storage from "../upload-config.js";
+const upload = multer(storage);
+import db from "../utils/db.js";
 export const router = Router();
 //return hello world
 router.get("/", (req, res) => {
     res.send("Hello World!");
 });
-// router.get("/all", async (req: Request, res: Response) => {
-//   const { rows } = await db.query("SELECT * FROM products", []);
-//   res.send(rows);
-//   console.table(rows);
-// });
+router.get("/all", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { rows } = yield db.query("SELECT * FROM products", []);
+    res.send(rows);
+    console.table(rows);
+}));
 // router.post(
 //   "/",
 //   upload.single("image"),
@@ -46,6 +52,11 @@ router.get("/", (req, res) => {
 //   );
 //   res.send(rows[0]);
 // });
+// router.delete("/:id", async (req: Request, res: Response) => {
+//   const { id } = req.params;
+//   const { rows } = await db.query("DELETE FROM products WHERE id = $1", [id]);
+//   res.send(rows[0]);
+// });
 // router.delete(
 //   "/:id",
 //     async (req, res, next) => {
@@ -58,7 +69,7 @@ router.get("/", (req, res) => {
 //     res.status(204).send("OK");
 //   })
 // );
-// router.get("/error", (req: Request, res: Response) => {
-//   res.send("The URL you are trying to reach does not exist.");
-// });
-// module.exports = router;
+router.get("/error", (req, res) => {
+    res.send("The URL you are trying to reach does not exist.");
+});
+export default router;

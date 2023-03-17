@@ -17,7 +17,7 @@ const s3 = new S3({
 //uploads a file to s3, no download function needed since
 //setting the s3 bucket 'get object' to public access
 
-function uploadFile(file: string, key: Express.Multer.File): Promise<any> {
+export function uploadFile(file: string, key: Express.Multer.File): Promise<any> {
   const fileStream = fs.createReadStream(file);
 
   const uploadParams = {
@@ -29,11 +29,11 @@ function uploadFile(file: string, key: Express.Multer.File): Promise<any> {
   return s3.upload(uploadParams).promise();
 }
 
-// function deleteFile(deletedRow) {
-//   const deleteParams = { Bucket: bucketName, Key: deletedRow.awskey };
+export function deleteFile(deletedRow: any) {
+  const deleteParams = { Bucket: bucketName, Key: deletedRow.awskey };
 
-//   return s3.deleteObject(deleteParams).promise();
-// }
+  return s3.deleteObject(deleteParams).promise();
+}
 
-exports.uploadFile = uploadFile;
+// exports.uploadFile = uploadFile;
 // exports.deleteFile = deleteFile;

@@ -12,7 +12,7 @@ const s3 = new S3({
 });
 //uploads a file to s3, no download function needed since
 //setting the s3 bucket 'get object' to public access
-function uploadFile(file, key) {
+export function uploadFile(file, key) {
     const fileStream = fs.createReadStream(file);
     const uploadParams = {
         Bucket: bucketName,
@@ -21,9 +21,9 @@ function uploadFile(file, key) {
     };
     return s3.upload(uploadParams).promise();
 }
-// function deleteFile(deletedRow) {
-//   const deleteParams = { Bucket: bucketName, Key: deletedRow.awskey };
-//   return s3.deleteObject(deleteParams).promise();
-// }
-exports.uploadFile = uploadFile;
+export function deleteFile(deletedRow) {
+    const deleteParams = { Bucket: bucketName, Key: deletedRow.awskey };
+    return s3.deleteObject(deleteParams).promise();
+}
+// exports.uploadFile = uploadFile;
 // exports.deleteFile = deleteFile;

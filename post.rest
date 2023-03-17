@@ -23,7 +23,7 @@ PUT http://localhost:3001/api/inventory/1
 Content-Type: application/json
 
 {
-    "product_name": "Dried Chiles",
+    "product_name": "Dried grass",
     "sku": "1100112",
     "location": "A7",
     "count": 26
