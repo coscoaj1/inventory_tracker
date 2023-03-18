@@ -1,5 +1,6 @@
 import Router from "express-promise-router";
 import { Request, Response, NextFunction } from "express"
+import 'express-async-errors';
 import sharp from "sharp";
 import multer from "multer";
 import fs from "fs";
@@ -8,17 +9,13 @@ const upload = multer(storage);
 import { uploadFile, deleteFile } from "../utils/s3.js";
  
 import db from "../utils/db.js";
+import { HttpError } from "http-errors";
 
 
 export const router = Router();
 
-//return hello world
-router.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
-});
 
-
-router.get("/all", async (req: Request, res: Response) => {
+router.get("/all", async (req: Request, res: Response, next: NextFunction) => {
   const { rows } = await db.query("SELECT * FROM products", []);
   res.send(rows);
   console.table(rows);
@@ -81,8 +78,8 @@ router.get("/all", async (req: Request, res: Response) => {
 //   })
 // );
 
-router.get("/error", (req: Request, res: Response) => {
-  res.send("The URL you are trying to reach does not exist.");
+router.get("/error", async (err: HttpError, req: Request, res: Response) => {
+  await res.send("The URL you are trying to reach does not exist.");
 });
 
 export default router;

@@ -8,16 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import Router from "express-promise-router";
+import 'express-async-errors';
 import multer from "multer";
 import storage from "../upload-config.js";
 const upload = multer(storage);
 import db from "../utils/db.js";
 export const router = Router();
-//return hello world
-router.get("/", (req, res) => {
-    res.send("Hello World!");
-});
-router.get("/all", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/all", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { rows } = yield db.query("SELECT * FROM products", []);
     res.send(rows);
     console.table(rows);
@@ -69,7 +66,7 @@ router.get("/all", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 //     res.status(204).send("OK");
 //   })
 // );
-router.get("/error", (req, res) => {
-    res.send("The URL you are trying to reach does not exist.");
-});
+router.get("/error", (err, req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield res.send("The URL you are trying to reach does not exist.");
+}));
 export default router;

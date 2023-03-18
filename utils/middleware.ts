@@ -16,19 +16,15 @@ export const errorLogger = (err: HttpError, req: Request, res: Response, next: N
   next(err);
 };
 
+
 export const errorResponder = (err: HttpError, req: Request, res: Response, next: NextFunction) => {
   res.header("Content-Type", "application/json");
   res.status(err.statusCode).send(JSON.stringify(err, null, 4));
-  next(err);
 };
+
 
 export const unknownEndpoint = (req: Request, res: Response) => {
-  res.redirect("/api/inventory/error");
+  logger.error("Unknown Endpoint:" + req.path)
+  res.status(404).send({ error: "unknown endpoint" });
+  // res.redirect("/api/inventory/error");
 };
-
-// module.exports = {
-//   requestLogger,
-//   errorLogger,
-//   unknownEndpoint,
-//   errorResponder,
-// };

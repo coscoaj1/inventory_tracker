@@ -11,7 +11,6 @@ import {
 } from "./utils/middleware.js";
 
 app.use(cors());
-app.use(express.json());
 app.use(express.static("build"));
 
 app.use(morgan(":url :method :response-time ms :body"));
@@ -19,6 +18,7 @@ morgan.token("body", (req: Request) => JSON.stringify(req.body));
 
 // app.use("/", router, express.static("uploads"));
 app.use("/api/inventory", router);
+app.use(express.json());
 
 app.use(requestLogger);
 app.use(errorLogger);
